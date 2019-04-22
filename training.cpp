@@ -7,6 +7,7 @@
 #include <string>
 #include <vector>
 #include <boost/phoenix/phoenix.hpp>
+#include "AbstractException.hpp"
 
 namespace spirit = boost::spirit;
 namespace qi = spirit::qi;
@@ -98,10 +99,8 @@ public:
 
 		line++;
 		qi::on_error(rule,
-					 std::cerr << phoenix::val("Error. Expected ")
-							   << qi::_4 << " at line: " << line << " col: " << qi::_3 - qi::_1 << " : \""
-							   << phoenix::construct<std::string>(qi::_3, qi::_2)
-							   << "\"\n");
+				phoenix::throw_(AbstractException(phoenix::construct<const char *>(_4), line, qi::_3 - qi::_1,
+						phoenix::construct<std::string>(qi::_3, qi::_2))));
 	}
 
 	qi::rule<IteratorT, SkipperT> rule;
