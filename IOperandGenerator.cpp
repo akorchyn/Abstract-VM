@@ -1,4 +1,5 @@
 #include "IOperandGenerator.hpp"
+#include <iostream>
 
 IOperandGenerator::IOperandGenerator()
 {
@@ -15,6 +16,7 @@ IOperandGenerator::IOperandGenerator(IOperandGenerator const &x) : func(x.func)
 
 IOperand const *IOperandGenerator::createInt8(std::string const &) const
 {
+	std::cout << "CHAR\n";
 	return nullptr;
 }
 
@@ -25,6 +27,8 @@ IOperand const *IOperandGenerator::createInt16(std::string const &) const
 
 IOperand const *IOperandGenerator::createInt32(std::string const &) const
 {
+	std::cout << "INT\n";
+
 	return nullptr;
 }
 
@@ -35,6 +39,7 @@ IOperand const *IOperandGenerator::createFloat(std::string const &) const
 
 IOperand const *IOperandGenerator::createDouble(std::string const &) const
 {
+	std::cout << "Double\n";
 	return nullptr;
 }
 

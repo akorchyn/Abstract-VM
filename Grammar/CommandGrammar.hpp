@@ -20,6 +20,7 @@ private:
 	CommandGrammar &operator=(CommandGrammar const &x) = default;
 
 	static unsigned				  line;
+	eOperandType				  type;
 	qi::rule<IteratorT, SkipperT> rule;
 	qi::rule<IteratorT, SkipperT> argFunc;
 	qi::rule<IteratorT, SkipperT> other;
@@ -31,7 +32,7 @@ unsigned CommandGrammar<IteratorT, SkipperT>::line = 0;
 
 template<typename IteratorT, typename SkipperT>
 CommandGrammar<IteratorT, SkipperT>::CommandGrammar()
-		: CommandGrammar::base_type(rule, "Command Grammar"), values(++line)
+		: CommandGrammar::base_type(rule, "Command Grammar"), values(++line, type)
 {
 	argFunc %=   qi::omit[qi::lit("assert") > qi::no_skip[qi::char_(' ') | '\t']] > values
 			   | qi::omit[qi::lit("push") > qi::no_skip[qi::char_(' ') | '\t']] > values;
@@ -50,6 +51,7 @@ CommandGrammar<IteratorT, SkipperT>::CommandGrammar()
 	rule %= qi::expect[(other | argFunc)];
 	argFunc.name("command argument");
 	other.name("command");
+	std::cout << type << std::endl;
 	qi::on_error(rule,
 				 std::cerr << phx::val("Error. Expected ") << qi::_4 << " at line " << line << " col: " << qi::_3 - qi::_1
 						   << " : \"" << phx::construct<std::string>(qi::_3, qi::_2) << "\"" << std::endl);
