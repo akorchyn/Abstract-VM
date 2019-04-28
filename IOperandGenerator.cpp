@@ -3,44 +3,60 @@
 
 IOperandGenerator::IOperandGenerator()
 {
-	func[Int8] = &IOperandGenerator::createInt8;
-	func[Int16] = &IOperandGenerator::createInt16;
-	func[Int32] = &IOperandGenerator::createInt32;
-	func[Float] = &IOperandGenerator::createFloat;
-	func[Double] = &IOperandGenerator::createDouble;
+	func[eOperandType::Int8] = &IOperandGenerator::createInt8;
+	func[eOperandType::Int16] = &IOperandGenerator::createInt16;
+	func[eOperandType::Int32] = &IOperandGenerator::createInt32;
+	func[eOperandType::Float] = &IOperandGenerator::createFloat;
+	func[eOperandType::Double] = &IOperandGenerator::createDouble;
 }
 
 IOperandGenerator::IOperandGenerator(IOperandGenerator const &x) : func(x.func)
 {
 }
 
-IOperand const *IOperandGenerator::createInt8(std::string const &) const
+IOperand const *IOperandGenerator::createInt8(std::string const &num) const
 {
-	std::cout << "CHAR\n";
-	return nullptr;
+	int					tmp;
+	std::istringstream	converter(num);
+
+	converter >> tmp;
+	return new Type<int8_t>(static_cast<int8_t>(tmp), eOperandType::Int8);
 }
 
-IOperand const *IOperandGenerator::createInt16(std::string const &) const
+IOperand const *IOperandGenerator::createInt16(std::string const &num) const
 {
-	return nullptr;
+	int16_t				tmp;
+	std::istringstream	converter(num);
+
+	converter >> tmp;
+	return new Type<int16_t>(tmp, eOperandType::Int16);
 }
 
-IOperand const *IOperandGenerator::createInt32(std::string const &) const
+IOperand const *IOperandGenerator::createInt32(std::string const &num) const
 {
-	std::cout << "INT\n";
+	int32_t				tmp;
+	std::istringstream	converter(num);
 
-	return nullptr;
+	converter >> tmp;
+	return new Type<int32_t>(tmp, eOperandType::Int32);
 }
 
-IOperand const *IOperandGenerator::createFloat(std::string const &) const
+IOperand const *IOperandGenerator::createFloat(std::string const &num) const
 {
-	return nullptr;
+	float				tmp;
+	std::istringstream	converter(num);
+
+	converter >> tmp;
+	return new Type<float>(tmp, eOperandType::Float);
 }
 
-IOperand const *IOperandGenerator::createDouble(std::string const &) const
+IOperand const *IOperandGenerator::createDouble(std::string const &num) const
 {
-	std::cout << "Double\n";
-	return nullptr;
+	double				tmp;
+	std::istringstream	converter(num);
+
+	converter >> tmp;
+	return new Type<double>(tmp, eOperandType::Double);
 }
 
 IOperand const *IOperandGenerator::createOperand(eOperandType type, std::string const &value)

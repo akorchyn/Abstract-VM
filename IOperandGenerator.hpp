@@ -2,10 +2,8 @@
 #define ABSTRACTVM_IOPERANDGENERATOR_HPP
 
 #include <map>
-#include "IOperand.hpp"
 #include "Type.hpp"
 #include <sstream>
-
 
 class IOperandGenerator
 {
