@@ -40,12 +40,12 @@ template<typename IteratorT, typename SkipperT>
 ValueGrammar<IteratorT, SkipperT>::ValueGrammar(int line, eOperandType &t)
 			: ValueGrammar::base_type(rule, "Types Grammar")
 	{
-		t = Int8;
+		t = eOperandType::Int8;
 		Int8_   %= (qi::lexeme[qi::omit[qi::lit("int8(")] > qi::raw[qi::int_[qi::_pass = (qi::_1 > -129 && qi::_1 < 128)]] > qi::omit[qi::char_(')')]]);
-		Int16_  %= (qi::lexeme[qi::omit[qi::lit("int16(")] > qi::raw[qi::short_[phx::ref(t) = Int16]] > qi::omit[qi::char_(')')]]);
-		Int32_  %= (qi::lexeme[qi::omit[qi::lit("int32(")] > qi::raw[qi::int_[phx::ref(t) = Int32]] > qi::omit[qi::char_(')')]]);
-		Float_  %= (qi::lexeme[qi::omit[qi::lit("float(")] > qi::raw[qi::float_[phx::ref(t) = Float]] > qi::omit[qi::char_(')')]]);
-		Double_ %= (qi::lexeme[qi::omit[qi::lit("double(")] > qi::raw[qi::double_[phx::ref(t) = Double]] > qi::omit[qi::char_(')')]]);
+		Int16_  %= (qi::lexeme[qi::omit[qi::lit("int16(")] > qi::raw[qi::short_[phx::ref(t) = eOperandType::Int16]] > qi::omit[qi::char_(')')]]);
+		Int32_  %= (qi::lexeme[qi::omit[qi::lit("int32(")] > qi::raw[qi::int_[phx::ref(t) = eOperandType::Int32]] > qi::omit[qi::char_(')')]]);
+		Float_  %= (qi::lexeme[qi::omit[qi::lit("float(")] > qi::raw[qi::float_[phx::ref(t) = eOperandType::Float]] > qi::omit[qi::char_(')')]]);
+		Double_ %= (qi::lexeme[qi::omit[qi::lit("double(")] > qi::raw[qi::double_[phx::ref(t) = eOperandType::Double]] > qi::omit[qi::char_(')')]]);
 
 		rule %= qi::expect[Int8_ | Int16_ | Int32_ | Float_ | Double_];
 

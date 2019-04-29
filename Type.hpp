@@ -24,8 +24,8 @@ public:
 	IOperand const *operator-(IOperand const &rhs) const override;
 	IOperand const *operator/(IOperand const &rhs) const override;
 	IOperand const *operator*(IOperand const &rhs) const override;
-
 	IOperand const *operator%(IOperand const &rhs) const override;
+
 	std::string	const &toString() const override;
 
 private:
