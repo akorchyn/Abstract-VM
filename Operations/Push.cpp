@@ -1,6 +1,6 @@
 #include "Push.hpp"
 
-Push::Push(const std::string &value, eOperandType type) : value(value), type(type)
+Push::Push(strOpPair x) : value(x.first), type(x.second)
 {
 }
 

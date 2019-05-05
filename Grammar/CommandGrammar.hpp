@@ -22,12 +22,10 @@ public:
 	CommandGrammar &operator=(CommandGrammar const &x) = delete;
 
 	static unsigned				  line;
-	eOperandType				  type;
 	qi::rule<IteratorT, SkipperT> rule;
 	qi::rule<IteratorT, SkipperT> argFunc;
 	qi::rule<IteratorT, SkipperT> other;
 	ValueGrammar<IteratorT, SkipperT>	values;
-	IOperationsGenerator				generator;
 };
 
 template<typename IteratorT, typename SkipperT>
@@ -35,10 +33,12 @@ unsigned CommandGrammar<IteratorT, SkipperT>::line = 0;
 
 template<typename IteratorT, typename SkipperT>
 CommandGrammar<IteratorT, SkipperT>::CommandGrammar(Commands &commands)
-		: CommandGrammar::base_type(rule, "Command Grammar"), values(++line, type)
+		: CommandGrammar::base_type(rule, "Command Grammar"), values(++line)
 {
 	argFunc %=   qi::omit[qi::lit("assert") > qi::no_skip[qi::char_(' ') | '\t']] > values
-			   | qi::omit[qi::lit("push") > qi::no_skip[qi::char_(' ') | '\t']] > values;
+						[phx::push_back(phx::ref(commands), phx::new_<Assert>(qi::_1, line))] |
+				 qi::omit[qi::lit("push") > qi::no_skip[qi::char_(' ') | '\t']] > values
+						[phx::push_back(phx::ref(commands), phx::new_<Push>(qi::_1))];
 	other   %=	(qi::lit("dump") [phx::push_back(phx::ref(commands), new Dump())] |
 				 qi::lit("add") |
 				 qi::lit("sub") |

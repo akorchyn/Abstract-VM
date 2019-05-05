@@ -8,7 +8,7 @@
 class Push : public IOperation
 {
 public:
-	Push(const std::string &value, eOperandType type);
+	Push(strOpPair x);
 	Push(const Push &x) = delete;
 	Push &operator=(const Push &x) = delete;
 	~Push();

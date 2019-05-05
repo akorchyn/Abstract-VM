@@ -1,6 +1,6 @@
 #include "Assert.hpp"
 
-Assert::Assert(std::string value, eOperandType type, int line) : value(value), type(type), line(line)
+Assert::Assert(strOpPair x, int line) : value(x.first), type(x.second), line(line)
 {
 }
 

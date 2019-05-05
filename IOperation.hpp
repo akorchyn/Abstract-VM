@@ -6,6 +6,8 @@
 
 #include "IOperand.hpp"
 
+using strOpPair = std::pair<std::string, eOperandType>;
+
 enum class Operations
 {
 	Push,
