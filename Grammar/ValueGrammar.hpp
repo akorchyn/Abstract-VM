@@ -5,6 +5,7 @@
 #include <boost/phoenix.hpp>
 #include <boost/variant.hpp>
 #include <boost/fusion/adapted/std_pair.hpp>
+#include "SkipperGrammar.hpp"
 #include "../IOperandGenerator.hpp"
 #include "../IOperation.hpp"
 #include <memory>
@@ -15,7 +16,7 @@ namespace phx =    boost::phoenix;
 
 template<typename IteratorT, typename SkipperT>
 class ValueGrammar
-: public qi::grammar<IteratorT, strOpPair(), SkipperT> // Grammar to parse types
+: public qi::grammar<IteratorT, std::string(), SkipperT> // Grammar to parse types
 {
 public:
 	ValueGrammar(int line);
@@ -28,7 +29,7 @@ public:
 	qi::rule<IteratorT, std::string(), SkipperT> Int32_;
 	qi::rule<IteratorT, std::string(), SkipperT> Float_;
 	qi::rule<IteratorT, std::string(), SkipperT> Double_;
-	qi::rule<IteratorT, strOpPair(), SkipperT> rule;
+	qi::rule<IteratorT, std::string(), SkipperT> rule;
 	eOperandType							   t;
 };
 
@@ -51,7 +52,7 @@ ValueGrammar<IteratorT, SkipperT>::ValueGrammar(int line)
 				[t = eOperandType::Float];	
 		Double_ %= (qi::lexeme[qi::omit[qi::lit("double(")] > qi::raw[qi::double_] > qi::omit[qi::char_(')')]])
 				[t = eOperandType::Double];
-		rule = qi::expect[(Int8_ | Int16_ | Int32_ | Float_ | Double_)[qi::_val = phx::construct<strOpPair>(qi::_1, t)]];
+		rule = qi::expect[(Int8_ | Int16_ | Int32_ | Float_ | Double_)];
 
 		Int8_.name("int8(...)");
 		Int16_.name("int16(...)");

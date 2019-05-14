@@ -1,7 +1,7 @@
-#ifndef ABSTRACTVM_SKIPPERGRAMMAR_HPP
-#define ABSTRACTVM_SKIPPERGRAMMAR_HPP
+#pragma once
 
 #include <boost/spirit/include/qi.hpp>
+#include <string>
 
 namespace spirit = boost::spirit;
 namespace qi = spirit::qi;
@@ -31,9 +31,7 @@ template<typename IteratorT>
 SkipperGrammar<IteratorT>::SkipperGrammar()
 		: SkipperGrammar::base_type(rule)
 {
-	lineCommentRule = qi::omit[qi::char_(';') >> *(qi::char_)];
+	lineCommentRule = qi::char_(';') >> *(qi::char_);
 	spaceRule = qi::space;
-	rule = spaceRule | lineCommentRule;
+	rule = qi::omit[spaceRule | lineCommentRule];
 }
-
-#endif
