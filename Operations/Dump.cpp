@@ -6,8 +6,8 @@ void Dump::execute(TypeStack &stack) const
 	if (stack.empty())
 		std::cout << "Empty stack" << std::endl;
 	else
-		std::for_each(stack.begin(), stack.end(), [](std::unique_ptr<const IOperand> const &x){
-			std::cout << (*x).toString() << std::endl;
+		std::for_each(stack.begin(), stack.end(), [](const IOperand *x){
+			std::cout << x->toString() << std::endl;
 		});
 	std::cout << "End Stack Dump" << std::endl;
 }

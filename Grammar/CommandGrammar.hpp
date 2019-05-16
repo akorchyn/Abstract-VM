@@ -2,7 +2,7 @@
 #define ABSTRACTVM_COMMANDGRAMMAR_HPP
 
 #include "ValueGrammar.hpp"
-#include "../IOperationsGenerator.hpp"
+#include "../Operations.hpp"
 
 namespace spirit = boost::spirit;
 namespace qi =     spirit::qi;
@@ -35,19 +35,19 @@ template<typename IteratorT, typename SkipperT>
 CommandGrammar<IteratorT, SkipperT>::CommandGrammar(Commands &commands)
 		: CommandGrammar::base_type(rule, "Command Grammar"), values(++line)
 {
-	argFunc %=   qi::omit[qi::lit("assert") > qi::no_skip[qi::char_(' ') | '\t']] > values
+	argFunc %=   (qi::omit[qi::lit("assert") > qi::no_skip[qi::char_(' ') | '\t']] > values)
 						|
-				 qi::omit[qi::lit("push") > qi::no_skip[qi::char_(' ') | '\t']] > values
-						;
-	other   %=	(qi::lit("dump") [phx::push_back(commands, phx::new_<Dump>())] |
-				 qi::lit("add") |
-				 qi::lit("sub") |
-				 qi::lit("mul") |
-				 qi::lit("div") |
-				 qi::lit("mod") |
-				 qi::lit("print") [phx::push_back(commands, phx::new_<Print>(line))] |
+				 (qi::omit[qi::lit("push") > qi::no_skip[qi::char_(' ') | '\t']] > values)
+						[phx::push_back(phx::ref(commands), phx::new_<Push>(qi::_1))];
+	other   %=	(qi::lit("dump")  [phx::push_back(phx::ref(commands), new Dump())] |
+				 qi::lit("add")   [phx::push_back(phx::ref(commands), new Plus(line))] |
+				 qi::lit("sub")   [phx::push_back(phx::ref(commands), new Minus(line))] |
+				 qi::lit("mul")   [phx::push_back(phx::ref(commands), new Multiply(line))] |
+				 qi::lit("div")   [phx::push_back(phx::ref(commands), new Division(line))] |
+				 qi::lit("mod")   [phx::push_back(phx::ref(commands), new Modulo(line))] |
+				 qi::lit("print") [phx::push_back(phx::ref(commands), new Print(line))] |
 				 qi::lit("exit") |
-				 qi::lit("pop") [phx::push_back(commands, phx::new_<Pop>(line))])
+				 qi::lit("pop")   [phx::push_back(phx::ref(commands), new Pop(line))])
 				  > qi::eoi |
 				qi::eoi;
 

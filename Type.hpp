@@ -29,6 +29,8 @@ public:
 	std::string	const &toString() const override;
 
 private:
+	inline T 	getNumber(std::string const &x) const;
+
 	std::string		str;
 	T				value;
 	eOperandType	type;
@@ -73,9 +75,8 @@ Type<T> &Type<T>::operator=(Type const &x)
 template<class T>
 IOperand const *Type<T>::operator+(const IOperand &rhs) const
 {
-	std::stringstream	toType(rhs.toString());
-	T					second;
-	toType >> second;
+	T	second = getNumber(rhs.toString());
+	
 	const T	res = value + second;
 	const T min = std::numeric_limits<T>::min();
 	const T max = std::numeric_limits<T>::max();
@@ -90,9 +91,8 @@ IOperand const *Type<T>::operator+(const IOperand &rhs) const
 template<class T>
 IOperand const *Type<T>::operator-(IOperand const &rhs) const
 {
-	std::stringstream	toType(rhs.toString());
-	T					second;
-	toType >> second;
+	T	second = getNumber(rhs.toString());
+	
 	const T	res = value - second;
 	const T min = std::numeric_limits<T>::min();
 	const T max = std::numeric_limits<T>::max();
@@ -107,10 +107,8 @@ IOperand const *Type<T>::operator-(IOperand const &rhs) const
 template<class T>
 IOperand const *Type<T>::operator/(IOperand const &rhs) const
 {
-	std::stringstream	toType(rhs.toString());
-	T					second;
-
-	toType >> second;
+	T	second = getNumber(rhs.toString());
+	
 	if (second == 0)
 		throw AbstractRuntimeException("Division by zero");
 	const T	res = value / second;
@@ -120,9 +118,7 @@ IOperand const *Type<T>::operator/(IOperand const &rhs) const
 template<class T>
 IOperand const *Type<T>::operator*(IOperand const &rhs) const
 {
-	std::stringstream	toType(rhs.toString());
-	T					second;
-	toType >> second;
+	T	second = getNumber(rhs.toString());
 	const T	res = value * second;
 
 	if (value != 0 && second != 0 && value != res / second)
@@ -135,10 +131,8 @@ IOperand const *Type<T>::operator*(IOperand const &rhs) const
 template<class T>
 IOperand const *Type<T>::operator%(IOperand const &rhs) const
 {
-	std::stringstream	toType(rhs.toString());
-	T					second;
+	T	second = getNumber(rhs.toString());
 
-	toType >> second;
 	if (second == 0)
 		throw AbstractRuntimeException("Module by zero");
 	const T	res = value % second;
@@ -174,8 +168,32 @@ int Type<T>::getPrecision() const noexcept
 }
 
 /*
- *  OTHER METHODS
+ *  Get numeric value from string
  */
+
+template<class T>
+inline T 	 Type<T>::getNumber(std::string const &x) const
+{
+	T 					res;
+	std::stringstream	toT(x);
+
+	toT >> res;
+	return res;
+}
+
+/*
+** sstream int8_t read as first character on string. So speciliazation for it
+*/ 
+
+template<>
+inline int8_t 	 Type<int8_t>::getNumber(std::string const &x) const
+{
+	int 				res;
+	std::stringstream	toT(x);
+
+	toT >> res;
+	return res;
+}
 
 template<class T>
 std::string const &Type<T>::toString() const

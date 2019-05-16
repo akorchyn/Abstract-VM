@@ -1,15 +1,15 @@
 #include "Push.hpp"
 
-Push::Push(std::string const &x) : value(x), type(eOperandType::Int8)
+#include <iostream>
+Push::Push(std::string const & x) : value(x), type(eOperandType::Int8)
 {
+	std::cout << x << std::endl;
 }
 
 void Push::execute(TypeStack &stack) const
 {
-	IOperandGenerator		generator;
-	std::unique_ptr<const IOperand> ptr(generator.createOperand(type, value));
-
-	stack.push_back(std::move(ptr));
+	IOperandGenerator generator;
+	stack.push_back(generator.createOperand(type, value));
 }
 
 Push::~Push()

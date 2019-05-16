@@ -10,9 +10,9 @@ void Multiply::execute(TypeStack& stack) const
 		throw AbstractRuntimeException(std::string("Multiply error: Line ") + std::to_string(line) + ": Stack size less then 2");
 
 	IOperandGenerator	gen;
-	const IOperand * tmp, *rht = stack.top();
+	const IOperand * tmp, *rht = stack.back();
 	stack.pop_back();
-	const IOperand * lft = stack.top();
+	const IOperand * lft = stack.back();
 	stack.pop_back();
 
 	try {
@@ -30,6 +30,6 @@ void Multiply::execute(TypeStack& stack) const
 	}
 	catch (AbstractRuntimeException & x) {
 		delete lft, delete rht, delete tmp;
-		throw AbstractRuntimeException("Multiply error: " + x.what());
+		throw AbstractRuntimeException(std::string("Multiply error: Line ") + std::to_string(line) + ": "  + x.what());
 	}
 }

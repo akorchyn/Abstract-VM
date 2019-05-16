@@ -2,6 +2,7 @@
 #define ABSTRACTVM_IOPERAND_HPP
 
 #include <string>
+#include <limits>
 
 enum class eOperandType
 {

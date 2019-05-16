@@ -3,8 +3,7 @@
 
 #include <vector>
 #include <memory>
-
-#include "IOperand.hpp"
+#include "IOperandGenerator.hpp"
 
 using strOpPair = std::pair<std::string, eOperandType>;
 
@@ -23,7 +22,7 @@ enum class Operations
 	Exit
 };
 
-using TypeStack = std::vector<std::unique_ptr<const IOperand> >;
+using TypeStack = std::vector<const IOperand *>;
 
 class IOperation
 {
