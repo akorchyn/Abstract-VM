@@ -9,7 +9,7 @@ Push::Push(std::string const & x) : value(x), type(eOperandType::Int8)
 void Push::execute(TypeStack &stack) const
 {
 	IOperandGenerator generator;
-	stack.push_back(generator.createOperand(type, value));
+	stack.emplace_back(generator.createOperand(type, value));
 }
 
 Push::~Push()

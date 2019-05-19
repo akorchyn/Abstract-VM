@@ -5,8 +5,6 @@
 #include <memory>
 #include "IOperandGenerator.hpp"
 
-using strOpPair = std::pair<std::string, eOperandType>;
-
 enum class Operations
 {
 	Push,
@@ -21,8 +19,6 @@ enum class Operations
 	Print,
 	Exit
 };
-
-using TypeStack = std::vector<const IOperand *>;
 
 class IOperation
 {

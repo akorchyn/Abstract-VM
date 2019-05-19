@@ -8,6 +8,6 @@ void Assert::execute(TypeStack &stack) const
 {
 	if (stack.empty())
 		throw AbstractRuntimeException(std::string("Assert error: Line ") + std::to_string(line) + ". Assert at empty stack");
-	if (type != (*stack.back()).getType() || value != (*stack.back()).toString())
+	if (type != stack.back()->getType() || value != stack.back()->toString())
 		throw AbstractRuntimeException(std::string("Assert error: Line " + std::to_string(line) + ". Assert failed"));
 }

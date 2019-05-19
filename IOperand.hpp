@@ -3,6 +3,8 @@
 
 #include <string>
 #include <limits>
+#include <memory>
+#include <vector>
 
 enum class eOperandType
 {
@@ -28,5 +30,7 @@ public:
 	virtual IOperand const *operator/(IOperand const &rhs) const = 0;
 	virtual IOperand const *operator%(IOperand const &rhs) const = 0;
 };
+
+using TypeStack = std::vector<std::unique_ptr<const IOperand>>;
 
 #endif
