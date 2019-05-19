@@ -12,7 +12,7 @@ public:
 	Push &operator=(const Push &x) = delete;
 	~Push();
 
-	void	execute(TypeStack &stack) const override;
+	bool	execute(TypeStack &stack) const override;
 
 private:
 	std::string		value;

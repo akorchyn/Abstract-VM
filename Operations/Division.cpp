@@ -4,7 +4,7 @@ Division::Division(int line) : line(line)
 {
 }
 
-void Division::execute(TypeStack& stack) const
+bool Division::execute(TypeStack& stack) const
 {
 	if (stack.size() < 2)
 		throw AbstractRuntimeException(std::string("Division error: Line ") + std::to_string(line) + ": Stack size less then 2");
@@ -30,4 +30,5 @@ void Division::execute(TypeStack& stack) const
 	catch (AbstractRuntimeException & x) {
 		throw AbstractRuntimeException(std::string("Division error: Line ") + std::to_string(line) + ": " + x.what());
 	}
+	return true;
 }

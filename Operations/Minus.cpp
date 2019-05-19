@@ -4,7 +4,7 @@ Minus::Minus(int line) : line(line)
 {
 }
 
-void Minus::execute(TypeStack &stack) const
+bool Minus::execute(TypeStack &stack) const
 {
 	if (stack.size() < 2)
 		throw AbstractRuntimeException(std::string("Minus error: Line ") + std::to_string(line) + ": Stack size less then 2");
@@ -30,4 +30,5 @@ void Minus::execute(TypeStack &stack) const
 	catch (AbstractRuntimeException & x) {
 		throw AbstractRuntimeException(std::string("Minus error: Line ") + std::to_string(line) + ": " + x.what());
 	}
+	return true;
 }

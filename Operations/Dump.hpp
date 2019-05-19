@@ -6,7 +6,7 @@
 #include "../IOperand.hpp"
 #include "../IOperation.hpp"
 
-class Dump : public  IOperation
+class Dump : public IOperation
 {
 public:
 	Dump() = default;
@@ -14,7 +14,7 @@ public:
 	Dump &operator=(const Dump &x) = default;
 	~Dump() = default;
 
-	void	execute(TypeStack &stack) const override;
+	bool	execute(TypeStack &stack) const override;
 };
 
 #endif

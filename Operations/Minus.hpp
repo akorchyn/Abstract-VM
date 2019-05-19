@@ -13,7 +13,7 @@ public:
 	Minus& operator=(const Minus& x) = delete;
 	~Minus() = default;
 
-	void	execute(TypeStack& stack) const override;
+	bool	execute(TypeStack& stack) const override;
 
 private:
 	int				line;

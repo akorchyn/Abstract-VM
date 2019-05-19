@@ -1,6 +1,6 @@
 #include "Dump.hpp"
 
-void Dump::execute(TypeStack &stack) const
+bool Dump::execute(TypeStack &stack) const
 {
 	std::cout << "Start Stack Dump" << std::endl;
 	if (stack.empty())
@@ -10,4 +10,5 @@ void Dump::execute(TypeStack &stack) const
 			std::cout << x->toString() << std::endl;
 		});
 	std::cout << "End Stack Dump" << std::endl;
+	return true;
 }

@@ -4,7 +4,7 @@ Modulo::Modulo(int line) : line(line)
 {
 }
 
-void Modulo::execute(TypeStack& stack) const
+bool Modulo::execute(TypeStack& stack) const
 {
 	if (stack.size() < 2)
 		throw AbstractRuntimeException(std::string("Modulo error: Line ") + std::to_string(line) + ": Stack size less then 2");
@@ -30,4 +30,5 @@ void Modulo::execute(TypeStack& stack) const
 	catch (AbstractRuntimeException & x) {
 		throw AbstractRuntimeException(std::string("Modulo error: Line ") + std::to_string(line) + ": "  + x.what());
 	}
+	return true;
 }

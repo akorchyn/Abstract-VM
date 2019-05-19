@@ -4,7 +4,7 @@ Plus::Plus(int line) : line(line)
 {
 }
 
-void Plus::execute(TypeStack& stack) const
+bool Plus::execute(TypeStack& stack) const
 {
 	if (stack.size() < 2)
 		throw AbstractRuntimeException(std::string("Plus error: Line ") + std::to_string(line) + ": Stack size less then 2");
@@ -30,4 +30,5 @@ void Plus::execute(TypeStack& stack) const
 	catch (AbstractRuntimeException & x) {
 		throw AbstractRuntimeException(std::string("Plus error: Line ") + std::to_string(line) + ": "  + x.what());
 	}
+	return true;
 }

@@ -46,7 +46,7 @@ CommandGrammar<IteratorT, SkipperT>::CommandGrammar(Commands &commands)
 				 qi::lit("div")   [phx::push_back(phx::ref(commands), new Division(line))] |
 				 qi::lit("mod")   [phx::push_back(phx::ref(commands), new Modulo(line))] |
 				 qi::lit("print") [phx::push_back(phx::ref(commands), new Print(line))] |
-				 qi::lit("exit") |
+				 qi::lit("exit")  [phx::push_back(phx::ref(commands), new Exit())] |
 				 qi::lit("pop")   [phx::push_back(phx::ref(commands), new Pop(line))])
 				  > qi::eoi |
 				qi::eoi;

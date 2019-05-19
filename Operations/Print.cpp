@@ -4,7 +4,7 @@ Print::Print(int line) : line(line)
 {
 }
 
-void Print::execute(TypeStack &stack) const
+bool Print::execute(TypeStack &stack) const
 {
 	std::stringstream	translate;
 	int 				ch;
@@ -16,4 +16,5 @@ void Print::execute(TypeStack &stack) const
 	translate << stack.back()->toString();
 	translate >> ch;
 	std::cout << static_cast<char>(ch);
+	return true;
 }

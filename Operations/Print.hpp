@@ -15,7 +15,7 @@ public:
 	Print &operator=(const Print &x) = default;
 	~Print() = default;
 
-	void	execute(TypeStack &stack) const override;
+	bool	execute(TypeStack &stack) const override;
 
 private:
 	int 	line;

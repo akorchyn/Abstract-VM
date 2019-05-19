@@ -13,7 +13,7 @@ public:
 	Assert &operator=(const Assert &x) = delete;
 	~Assert() = default;
 
-	void	execute(TypeStack &stack) const override;
+	bool	execute(TypeStack &stack) const override;
 
 private:
 	std::string		value;

@@ -60,7 +60,7 @@ ValueGrammar<IteratorT, SkipperT>::ValueGrammar(int line)
 		Double_.name("double(...)");
 		rule.name("Valid type");
 		qi::on_error(rule,
-					 std::cerr << phx::val("Error. Expected ") << qi::_4 <<" at line : " << line << ": \""
+					 std::cerr << phx::val("Error. Expected ") << qi::_4 <<" at line " << line << ": \""
 								  << phx::construct<std::string>(qi::_3,qi::_2) << "\"\n");
 	}
 
