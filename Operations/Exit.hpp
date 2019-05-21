@@ -9,7 +9,7 @@
 class Exit : public IOperation
 {
 public:
-	Exit() = default;
+	Exit(int line);
 	Exit(const Exit &x) = default;
 	Exit &operator=(const Exit &x) = default;
 	~Exit() = default;

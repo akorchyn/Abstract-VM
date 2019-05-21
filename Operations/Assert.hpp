@@ -8,7 +8,7 @@
 class Assert : public  IOperation
 {
 public:
-	Assert(const std::string &x, int line);
+	Assert(std::string x, int line, eOperandType type);
 	Assert(const Assert &x) = delete;
 	Assert &operator=(const Assert &x) = delete;
 	~Assert() = default;

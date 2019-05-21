@@ -1,6 +1,6 @@
 #include "Assert.hpp"
 
-Assert::Assert(const std::string &x, int line) : value(x), type(eOperandType::Int8), line(line)
+Assert::Assert(std::string x, int line, eOperandType type) : value(std::move(x)), type(type), line(line)
 {
 }
 

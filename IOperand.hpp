@@ -4,7 +4,7 @@
 #include <string>
 #include <limits>
 #include <memory>
-#include <vector>
+#include <list>
 
 enum class eOperandType
 {
@@ -31,6 +31,6 @@ public:
 	virtual IOperand const *operator%(IOperand const &rhs) const = 0;
 };
 
-using TypeStack = std::vector<std::unique_ptr<const IOperand>>;
+using TypeStack = std::list<std::unique_ptr<const IOperand>>;
 
 #endif

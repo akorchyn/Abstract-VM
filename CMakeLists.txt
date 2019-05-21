@@ -11,10 +11,10 @@ FIND_PACKAGE(Boost ${BOOST_MIN_VERSION} REQUIRED)
 
 set(CMAKE_CXX_STANDARD 14)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Werror")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Werror -Ofast")
 include_directories(${Boost_INCLUDE_DIRS})
 link_directories(${Boost_LIBRARY_DIRS})
-aux_source_directory(. t)
-add_executable(AbstractVM training.cpp)
+aux_source_directory(Grammar grammary)
+add_executable(AbstractVM training.cpp ${grammary}  IOperandGenerator.cpp)
 
 

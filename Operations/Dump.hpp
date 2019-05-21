@@ -9,7 +9,7 @@
 class Dump : public IOperation
 {
 public:
-	Dump() = default;
+	Dump(int line);
 	Dump(const Dump &x) = default;
 	Dump &operator=(const Dump &x) = default;
 	~Dump() = default;

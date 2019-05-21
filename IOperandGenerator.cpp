@@ -20,7 +20,7 @@ IOperand const *IOperandGenerator::createInt8(std::string const &num) const
 	std::istringstream	converter(num);
 
 	converter >> tmp;
-	return new Type<int8_t>(static_cast<int8_t>(tmp), eOperandType::Int8);
+	return new Type<int8_t>(static_cast<int8_t>(tmp), num, eOperandType::Int8);
 }
 
 IOperand const *IOperandGenerator::createInt16(std::string const &num) const
@@ -29,7 +29,7 @@ IOperand const *IOperandGenerator::createInt16(std::string const &num) const
 	std::istringstream	converter(num);
 
 	converter >> tmp;
-	return new Type<int16_t>(tmp, eOperandType::Int16);
+	return new Type<int16_t>(tmp, num, eOperandType::Int16);
 }
 
 IOperand const *IOperandGenerator::createInt32(std::string const &num) const
@@ -38,7 +38,7 @@ IOperand const *IOperandGenerator::createInt32(std::string const &num) const
 	std::istringstream	converter(num);
 
 	converter >> tmp;
-	return new Type<int32_t>(tmp, eOperandType::Int32);
+	return new Type<int32_t>(tmp, num, eOperandType::Int32);
 }
 
 IOperand const *IOperandGenerator::createFloat(std::string const &num) const
@@ -47,7 +47,7 @@ IOperand const *IOperandGenerator::createFloat(std::string const &num) const
 	std::istringstream	converter(num);
 
 	converter >> tmp;
-	return new Type<float>(tmp, eOperandType::Float);
+	return new Type<float>(tmp, num, eOperandType::Float);
 }
 
 IOperand const *IOperandGenerator::createDouble(std::string const &num) const
@@ -56,7 +56,7 @@ IOperand const *IOperandGenerator::createDouble(std::string const &num) const
 	std::istringstream	converter(num);
 
 	converter >> tmp;
-	return new Type<double>(tmp, eOperandType::Double);
+	return new Type<double>(tmp, num, eOperandType::Double);
 }
 
 IOperand const *IOperandGenerator::createOperand(eOperandType type, std::string const &value)

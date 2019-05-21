@@ -5,6 +5,7 @@
 
 #include "IOperand.hpp"
 #include "AbstractRuntimeException.hpp"
+#include <limits>
 #include <sstream>
 #include <string>
 
@@ -13,6 +14,7 @@ class Type : public IOperand
 {
 public:
 	Type(const T &value, eOperandType type);
+	Type(const T &value, std::string str, eOperandType type);
 	Type(Type const &x);
 	Type &operator=(Type const &x);
 	~Type();
@@ -48,6 +50,11 @@ Type<T>::Type(const T &value, eOperandType type) : value(value), type(type)
 }
 
 template<class T>
+Type<T>::Type(const T &value, std::string x, eOperandType type) : value(value), type(type), str(std::move(x))
+{
+}
+
+template<class T>
 Type<T>::Type(Type const &x) : value(x.value), type(x.type), str(x.str)
 {
 }
@@ -78,12 +85,10 @@ IOperand const *Type<T>::operator+(const IOperand &rhs) const
 	T	second = getNumber(rhs.toString());
 	
 	const T	res = value + second;
-	const T min = std::numeric_limits<T>::min();
-	const T max = std::numeric_limits<T>::max();
 
-	if (second < 0 && value < 0 && (res - min <= value || res - min <= second))
+	if (second < 0 && value < 0 && res > 0)
 		throw AbstractRuntimeException("Underflow on " + toString() +  " + " + rhs.toString());
-	else if (second > 0 && value > 0 && (res - max >= value || res - max >= second))
+	else if (second > 0 && value > 0 && res < 0)
 		throw AbstractRuntimeException("Overflow on " + toString() +  " + " + rhs.toString());
 	return new Type<T>(res, type);
 }
@@ -97,9 +102,9 @@ IOperand const *Type<T>::operator-(IOperand const &rhs) const
 	const T min = std::numeric_limits<T>::min();
 	const T max = std::numeric_limits<T>::max();
 
-	if (-second < 0 && value < 0 && (res - min <= value || res - min <= -second))
+	if (value < 0 && second > 0 && res > 0)
 		throw AbstractRuntimeException("Underflow on " + toString() +  " - " + rhs.toString());
-	else if (-second > 0 && value > 0 && (res - max >= value || res - max >= -second))
+	else if (value > 0 && second < 0 && res < 0)
 		throw AbstractRuntimeException("Overflow on " + toString() +  " - " + rhs.toString());
 	return new Type<T>(res, type);
 }

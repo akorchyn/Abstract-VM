@@ -1,9 +1,8 @@
 #include "Push.hpp"
 
 #include <iostream>
-Push::Push(std::string const & x) : value(x), type(eOperandType::Int8)
+Push::Push(std::string x, eOperandType type) : value(std::move(x)), type(type)
 {
-	std::cout << x << std::endl;
 }
 
 bool Push::execute(TypeStack &stack) const

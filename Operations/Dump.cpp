@@ -1,5 +1,8 @@
 #include "Dump.hpp"
 
+Dump::Dump(int)
+{}
+
 bool Dump::execute(TypeStack &stack) const
 {
 	std::cout << "Start Stack Dump" << std::endl;
