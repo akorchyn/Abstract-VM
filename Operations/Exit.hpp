@@ -1,5 +1,4 @@
-#ifndef ABSTRACTVM_EXIT_HPP
-#define ABSTRACTVM_EXIT_HPP
+#pragma once
 
 #include <iostream>
 #include <algorithm>
@@ -17,4 +16,3 @@ public:
 	bool	execute(TypeStack &stack) const override;
 };
 
-#endif

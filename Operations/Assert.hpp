@@ -1,5 +1,4 @@
-#ifndef ABSTRACTVM_ASSERT_HPP
-#define ABSTRACTVM_ASSERT_HPP
+#pragma once
 
 #include "../IOperand.hpp"
 #include "../AbstractRuntimeException.hpp"
@@ -20,5 +19,3 @@ private:
 	eOperandType	type;
 	int				line;
 };
-
-#endif

@@ -1,22 +1,12 @@
-#ifndef ABSTRACTVM_ABSTRACTRUNTIMEEXCEPTION_HPP
-#define ABSTRACTVM_ABSTRACTRUNTIMEEXCEPTION_HPP
+#pragma once
 
 #include <string>
 
-class AbstractRuntimeException : public std::exception
+class AbstractRuntimeException : public std::runtime_error
 {
 public:
-	AbstractRuntimeException(const std::string &&x) noexcept;
+	AbstractRuntimeException(const std::string &x) noexcept;
 	AbstractRuntimeException(AbstractRuntimeException const &x) noexcept;
 	~AbstractRuntimeException();
-
 	AbstractRuntimeException &operator=(AbstractRuntimeException const &x) noexcept;
-
-	const char *what() const noexcept override;
-
-private:
-	std::string		msg;
 };
-
-
-#endif

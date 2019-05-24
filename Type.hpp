@@ -1,6 +1,3 @@
-#ifndef ABSTRACTVM_TYPE_HPP
-#define ABSTRACTVM_TYPE_HPP
-
 #pragma once
 
 #include "IOperand.hpp"
@@ -27,6 +24,10 @@ public:
 	IOperand const *operator/(IOperand const &rhs) const override;
 	IOperand const *operator*(IOperand const &rhs) const override;
 	IOperand const *operator%(IOperand const &rhs) const override;
+	IOperand const *operator|(IOperand const &rhs) const override;
+	IOperand const *operator&(IOperand const &rhs) const override;
+	IOperand const *operator^(IOperand const &rhs) const override;
+	bool 			operator==(IOperand const &rhs) const override;
 
 	std::string	const &toString() const override;
 
@@ -50,7 +51,7 @@ Type<T>::Type(const T &value, eOperandType type) : value(value), type(type)
 }
 
 template<class T>
-Type<T>::Type(const T &value, std::string x, eOperandType type) : value(value), type(type), str(std::move(x))
+Type<T>::Type(const T &value, std::string x, eOperandType type) : str(std::move(x)), value(value), type(type)
 {
 }
 
@@ -99,8 +100,6 @@ IOperand const *Type<T>::operator-(IOperand const &rhs) const
 	T	second = getNumber(rhs.toString());
 	
 	const T	res = value - second;
-	const T min = std::numeric_limits<T>::min();
-	const T max = std::numeric_limits<T>::max();
 
 	if (value < 0 && second > 0 && res > 0)
 		throw AbstractRuntimeException("Underflow on " + toString() +  " - " + rhs.toString());
@@ -134,6 +133,12 @@ IOperand const *Type<T>::operator*(IOperand const &rhs) const
 }
 
 template<class T>
+bool 			Type<T>::operator==(IOperand const &rhs) const
+{
+	return value == getNumber(rhs.toString());
+}
+
+template<class T>
 IOperand const *Type<T>::operator%(IOperand const &rhs) const
 {
 	T	second = getNumber(rhs.toString());
@@ -147,13 +152,73 @@ IOperand const *Type<T>::operator%(IOperand const &rhs) const
 template<>
 inline IOperand const *Type<float>::operator%(IOperand const &) const
 {
-	throw AbstractRuntimeException("Module on floating value");
+	throw AbstractRuntimeException("Module on floating point value");
 }
 
 template<>
 inline IOperand const *Type<double>::operator%(IOperand const &) const
 {
-	throw AbstractRuntimeException("Module on floating value");
+	throw AbstractRuntimeException("Module on floating point value");
+}
+
+template<class T>
+IOperand const *Type<T>::operator|(const IOperand &rhs) const
+{
+	T	second = getNumber(rhs.toString());
+
+	return new Type<T>(value | second, type);
+}
+
+template<>
+inline IOperand const *Type<float>::operator|(const IOperand &) const
+{
+	throw AbstractRuntimeException("OR on floating point value");
+}
+
+template<>
+inline IOperand const *Type<double>::operator|(const IOperand &) const
+{
+	throw AbstractRuntimeException("OR on floating point value");
+}
+
+template<class T>
+IOperand const *Type<T>::operator&(IOperand const &rhs) const
+{
+	T	second = getNumber(rhs.toString());
+
+	return new Type<T>(value & second, type);
+}
+
+template<>
+inline IOperand const *Type<float>::operator&(const IOperand &) const
+{
+	throw AbstractRuntimeException("AND on floating point value");
+}
+
+template<>
+inline IOperand const *Type<double>::operator&(const IOperand &) const
+{
+	throw AbstractRuntimeException("AND on floating point value");
+}
+
+template<class T>
+IOperand const *Type<T>::operator^(IOperand const &rhs) const
+{
+	T	second = getNumber(rhs.toString());
+
+	return new Type<T>(value ^ second, type);
+}
+
+template<>
+inline IOperand const *Type<float>::operator^(const IOperand &) const
+{
+	throw AbstractRuntimeException("XOR on floating point value");
+}
+
+template<>
+inline IOperand const *Type<double>::operator^(const IOperand &) const
+{
+	throw AbstractRuntimeException("XOR on floating point value");
 }
 
 /*
@@ -169,7 +234,7 @@ eOperandType Type<T>::getType() const noexcept
 template<class T>
 int Type<T>::getPrecision() const noexcept
 {
-	return 0;
+	return static_cast<int>(type);
 }
 
 /*
@@ -185,6 +250,7 @@ inline T 	 Type<T>::getNumber(std::string const &x) const
 	toT >> res;
 	return res;
 }
+
 
 /*
 ** sstream int8_t read as first character on string. So speciliazation for it
@@ -206,4 +272,3 @@ std::string const &Type<T>::toString() const
 	return str;
 }
 
-#endif

@@ -1,5 +1,4 @@
-#ifndef ABSTRACTVM_DIVISION_HPP
-#define ABSTRACTVM_DIVISION_HPP
+#pragma once
 
 #include "../IOperand.hpp"
 #include "../AbstractRuntimeException.hpp"
@@ -18,5 +17,3 @@ public:
 private:
 	int				line;
 };
-
-#endif

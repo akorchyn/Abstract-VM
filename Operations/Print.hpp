@@ -1,5 +1,4 @@
-#ifndef ABSTRACTVM_PRINT_HPP
-#define ABSTRACTVM_PRINT_HPP
+#pragma once
 
 #include "../IOperand.hpp"
 #include "../AbstractRuntimeException.hpp"
@@ -20,5 +19,3 @@ public:
 private:
 	int 	line;
 };
-
-#endif

@@ -1,6 +1,5 @@
 #include "Push.hpp"
 
-#include <iostream>
 Push::Push(std::string x, eOperandType type) : value(std::move(x)), type(type)
 {
 }

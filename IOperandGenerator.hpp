@@ -1,5 +1,4 @@
-#ifndef ABSTRACTVM_IOPERANDGENERATOR_HPP
-#define ABSTRACTVM_IOPERANDGENERATOR_HPP
+#pragma once
 
 #include <map>
 #include "Type.hpp"
@@ -27,6 +26,3 @@ private:
 
 	std::map<eOperandType, creationFunction>	func;
 };
-
-
-#endif

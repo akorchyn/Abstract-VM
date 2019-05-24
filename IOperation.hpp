@@ -1,5 +1,4 @@
-#ifndef ABSTRACTVM_IOPERATION_HPP
-#define ABSTRACTVM_IOPERATION_HPP
+#pragma once
 
 #include <vector>
 #include <memory>
@@ -11,5 +10,3 @@ public:
 	virtual ~IOperation() = default;
 	virtual bool execute(TypeStack &) const = 0;
 };
-
-#endif

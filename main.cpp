@@ -1,6 +1,7 @@
 #include <fstream>
 #include "Parser.hpp"
 #include <errno.h>
+#include <filesystem>
 
 void	execute(Commands &commands)
 {
@@ -23,9 +24,9 @@ std::unique_ptr<std::istream> openFile(const std::string &filename)
 {
 	std::unique_ptr<std::ifstream>		file(new std::ifstream(filename));
 
-	if (errno)
+	if (errno || std::filesystem::is_directory(filename))
 	{
-		std::cerr << "File error: " << filename << ": " << strerror(errno) << std::endl;
+		std::cerr << "File error: " << filename << ": " << strerror(errno ? errno : EISDIR) << std::endl;
 		errno = 0;
 		return nullptr;
 	}
@@ -42,10 +43,22 @@ int main(int argc, char **argv)
 	else
 		for (int i = 1; i < argc; i++)
 		{
-			Parser	parser(std::move(openFile(argv[i])));
+			bool isConsoleInput = std::string("-") == argv[i];
+			int  size = (isConsoleInput ? 7 : std::strlen(argv[i])) + 10; // The amount of '-' symbols
+			if (argc > 2)
+				std::cout << std::string(size, '-') << std::endl
+						  << std::right << std::setw(size) << (isConsoleInput ? "Console" : argv[i]) << std::endl
+						  << std::string(size, '-') << std::endl << std::flush;
 
+			Parser parser = isConsoleInput ? Parser() : Parser(openFile(argv[i]));
 			if (parser.parseInput(commands))
 				execute(commands);
+			else
+				std::cerr.flush();
+			std::for_each(commands.begin(), commands.end(), [](IOperation const *x){
+				delete x;
+			});
 			commands.clear();
 		}
+//	system("leaks a.out");
 }

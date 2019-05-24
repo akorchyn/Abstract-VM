@@ -4,7 +4,7 @@ Exit::Exit(int)
 {
 }
 
-bool Exit::execute(TypeStack &stack) const
+bool Exit::execute(TypeStack &) const
 {
 	return false;
 }

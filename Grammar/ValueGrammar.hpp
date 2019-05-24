@@ -1,17 +1,9 @@
-#ifndef ABSTRACTVM_VALUEGRAMMAR_HPP
-#define ABSTRACTVM_VALUEGRAMMAR_HPP
+#pragma once
 
-#define BOOST_SPIRIT_DEBUG
-
-#include <boost/fusion/include/at_c.hpp>
-#include <boost/spirit/include/qi.hpp>
-#include <boost/phoenix.hpp>
-#include <boost/variant.hpp>
-#include <boost/fusion/adapted/std_pair.hpp>
-#include <boost/fusion/include/std_pair.hpp>
 #include "SkipperGrammar.hpp"
-#include "../IOperandGenerator.hpp"
-#include "../IOperation.hpp"
+#include "../IOperand.hpp"
+#include <boost/phoenix.hpp>
+#include <boost/fusion/adapted/std_pair.hpp>
 #include <memory>
 
 namespace spirit = boost::spirit;
@@ -87,5 +79,3 @@ ValueGrammar<IteratorT, SkipperT>::ValueGrammar(int line)
 					 std::cerr << phx::val("Error. Expected ") << qi::_4 <<" at line " << line << ": \""
 								  << phx::construct<std::string>(qi::_3,qi::_2) << "\"\n");
 	}
-
-#endif

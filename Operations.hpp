@@ -1,5 +1,4 @@
-#ifndef ABSTRACTVM_IOPERATIONSGENERATOR_HPP
-#define ABSTRACTVM_IOPERATIONSGENERATOR_HPP
+#pragma once
 
 #include "Operations/Assert.hpp"
 #include "Operations/Dump.hpp"
@@ -12,5 +11,6 @@
 #include "Operations/Division.hpp"
 #include "Operations/Modulo.hpp"
 #include "Operations/Exit.hpp"
-
-#endif
+#include "Operations/BinaryXor.hpp"
+#include "Operations/BinaryOr.hpp"
+#include "Operations/BinaryAnd.hpp"

@@ -1,5 +1,4 @@
-#ifndef ABSTRACTVM_IOPERAND_HPP
-#define ABSTRACTVM_IOPERAND_HPP
+#pragma once
 
 #include <string>
 #include <limits>
@@ -29,8 +28,11 @@ public:
 	virtual IOperand const *operator*(IOperand const &rhs) const = 0;
 	virtual IOperand const *operator/(IOperand const &rhs) const = 0;
 	virtual IOperand const *operator%(IOperand const &rhs) const = 0;
+	virtual IOperand const *operator|(IOperand const &rhs) const = 0;
+	virtual IOperand const *operator&(IOperand const &rhs) const = 0;
+	virtual IOperand const *operator^(IOperand const &rhs) const = 0;
+	virtual bool  		    operator==(IOperand const &rhs) const = 0;
 };
 
 using TypeStack = std::list<std::unique_ptr<const IOperand>>;
 
-#endif

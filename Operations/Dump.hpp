@@ -1,5 +1,4 @@
-#ifndef ABSTRACTVM_DUMP_HPP
-#define ABSTRACTVM_DUMP_HPP
+#pragma once
 
 #include <iostream>
 #include <algorithm>
@@ -14,7 +13,8 @@ public:
 	Dump &operator=(const Dump &x) = default;
 	~Dump() = default;
 
+	static const char *types[5];
+
 	bool	execute(TypeStack &stack) const override;
 };
 
-#endif

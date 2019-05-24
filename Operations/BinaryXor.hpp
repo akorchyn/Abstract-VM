@@ -4,13 +4,13 @@
 #include "../AbstractRuntimeException.hpp"
 #include "../IOperation.hpp"
 
-class Modulo : public  IOperation
+class BinaryXor : public  IOperation
 {
 public:
-	Modulo(int line);
-	Modulo(const Modulo& x) = delete;
-	Modulo& operator=(const Modulo& x) = delete;
-	~Modulo() = default;
+	BinaryXor(int line);
+	BinaryXor(const BinaryXor& x) = delete;
+	BinaryXor& operator=(const BinaryXor& x) = delete;
+	~BinaryXor() = default;
 
 	bool	execute(TypeStack& stack) const override;
 

@@ -1,5 +1,4 @@
-#ifndef ABSTRACTVM_PUSH_HPP
-#define ABSTRACTVM_PUSH_HPP
+#pragma once
 
 #include "../IOperation.hpp"
 #include "../IOperand.hpp"
@@ -18,6 +17,3 @@ private:
 	std::string		value;
 	eOperandType	type;
 };
-
-
-#endif

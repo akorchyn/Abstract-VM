@@ -13,13 +13,25 @@ bool Parser::parseInput(Commands &commands)
 {
 	std::string line;
 	bool		validParse = static_cast<bool>(input);
+	unsigned	exitNumber = 0;
 
 	while (input && !input->eof())
 	{
 		std::getline(*input, line);
 		if (!parseLine(line, commands))
 			validParse = false;
+		else if (!exitNumber && !commands.empty() && dynamic_cast<Exit*>(commands.back()))
+			exitNumber = commands.size();
 	}
+	input && input->seekg(-1, std::ios_base::end);
+	if (input && (exitNumber == 0 || input->get() != -1))
+	{
+		std::cerr << (exitNumber == 0 ? "Error: Exit instruction was not found"
+									 : "Error: No newline at the end of file") << std::endl;
+		return false;
+	}
+	else if (input && exitNumber != commands.size())
+		std::cerr << "Warning: Founded commands after exit. " << commands.size() - exitNumber << " commands will be ignored" << std::endl;
 	return validParse;
 }
 

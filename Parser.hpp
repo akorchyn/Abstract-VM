@@ -1,5 +1,4 @@
-#ifndef ABSTRACTVM_PARSER_HPP
-#define ABSTRACTVM_PARSER_HPP
+#pragma once
 
 #include "Grammar/CommandGrammar.hpp"
 #include "Grammar/SkipperGrammar.hpp"
@@ -21,5 +20,3 @@ private:
 	std::unique_ptr<std::istream> input;
 };
 
-
-#endif

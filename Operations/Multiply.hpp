@@ -1,5 +1,4 @@
-#ifndef ABSTRACTVM_MULTIPLY_HPP
-#define ABSTRACTVM_MULTIPLY_HPP
+#pragma once
 
 #include "../IOperand.hpp"
 #include "../AbstractRuntimeException.hpp"
@@ -19,4 +18,3 @@ private:
 	int				line;
 };
 
-#endif
