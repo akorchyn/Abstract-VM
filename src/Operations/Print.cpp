@@ -15,6 +15,6 @@ bool Print::execute(TypeStack &stack) const
 		throw AbstractRuntimeException(std::string("Print error: Line ") + std::to_string(line) + ": Stack top is not a Int8");
 	translate << stack.back()->toString();
 	translate >> ch;
-	std::cout << static_cast<char>(ch);
+	std::cout << static_cast<char>(ch) << std::endl;
 	return true;
 }
