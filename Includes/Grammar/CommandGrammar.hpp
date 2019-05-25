@@ -1,6 +1,5 @@
 #pragma once
 
-#include <boost/utility/value_init.hpp>
 #include "../Operations/IOperation.hpp"
 #include "../Operations/Operations.hpp"
 #include "ValueGrammar.hpp"
