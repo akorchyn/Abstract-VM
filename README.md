@@ -41,16 +41,27 @@ push int8(16)
 dump
 add
 assert int32(32) ; And this too
+push float(5.5)
+push float(2.1e10)
+dump
+add
 dump
 exit
 ;;
 ```
 Output:
-```Start Stack Dump
+```
+Start Stack Dump
 Int32   16
 Int8    16
 End Stack Dump
 Start Stack Dump
+Float   2.1e10
+Float   5.5
+Int32   32
+End Stack Dump
+Start Stack Dump
+Float   20999999488.000000
 Int32   32
 End Stack Dump
 ```
