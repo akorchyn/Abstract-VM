@@ -5,7 +5,7 @@
  * \brief This module contains all that used in parsing.
  *
  * It contains four classes. Three is spirit::qi grammar and one parser.
- * Main grammar is CommandGrammar and it parse one line of code, so I have to parse line by line.
+ * Main grammar is Command Grammar and it is parsing one line of code, so i have to parsing line by line.
  * My grammar don't parse all file, and it's the biggest problem, as for me.
  */
 
