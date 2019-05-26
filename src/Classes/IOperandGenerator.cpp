@@ -59,6 +59,13 @@ IOperand const *IOperandGenerator::createDouble(std::string const &num) const
 	return new Type<double>(tmp, num, eOperandType::Double);
 }
 
+/*!
+ *
+ * @param[in] type This argument used to choice template.
+ * @param[in] value String contain valid representation of this type. (int8 -> "125")
+ * @return Function return Type, that converts to IOperand const *
+ */
+
 IOperand const *IOperandGenerator::createOperand(eOperandType type, std::string const &value)
 {
 	return (this->*(func[type]))(value);

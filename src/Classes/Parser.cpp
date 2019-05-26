@@ -1,5 +1,14 @@
 #include "../../Includes/Parser.hpp"
 
+/*!
+ * \ingroup parse
+ * \file
+ * \brief Parser methods definition
+ */
+
+/*!
+ * Used private method: getInputFromConsole. This method could read input from console until find ";;"
+ */
 Parser::Parser()
 {
 	getInputFromConsole();
@@ -9,29 +18,35 @@ Parser::Parser(std::unique_ptr<std::istream> input) : input(std::move(input))
 {
 }
 
+/*!
+ *
+ * @param commands[out] push back parsed commands.
+ * @return true if parse ok, and false in other way.
+ */
+
 bool Parser::parseInput(Commands &commands)
 {
 	std::string line;
-	bool		validParse = static_cast<bool>(input);
-	unsigned	exitNumber = 0;
+	bool		validParse = static_cast<bool>(input); // Check if input has anything.
+	unsigned	exitPosition = 0; // Variable to memorise commands size when exit instruction finds.
 
 	while (input && !input->eof())
 	{
 		std::getline(*input, line);
 		if (!parseLine(line, commands))
 			validParse = false;
-		else if (!exitNumber && !commands.empty() && dynamic_cast<Exit*>(commands.back().get()))
-			exitNumber = commands.size();
+		else if (!exitPosition && !commands.empty() && dynamic_cast<Exit*>(commands.back().get()))
+			exitPosition = commands.size();
 	}
 	input && input->seekg(-1, std::ios_base::end);
-	if (input && (exitNumber == 0 || input->get() != -1))
+	if (input && (exitPosition == 0 || input->get() != -1))
 	{
-		std::cerr << (exitNumber == 0 ? "Error: Exit instruction was not found"
+		std::cerr << (exitPosition == 0 ? "Error: Exit instruction was not found"
 									 : "Error: No newline at the end of file") << std::endl;
 		return false;
 	}
-	else if (input && exitNumber != commands.size())
-		std::cerr << "Warning: Founded commands after exit. " << commands.size() - exitNumber << " commands will be ignored" << std::endl;
+	else if (input && exitPosition != commands.size())
+		std::cerr << "Warning: Founded commands after exit. " << commands.size() - exitPosition << " commands will be ignored" << std::endl;
 	return validParse;
 }
 

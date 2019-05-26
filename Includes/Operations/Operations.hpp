@@ -1,5 +1,10 @@
 #pragma once
 
+/*!
+ * \file
+ * \brief This header file include all operations.
+ */
+
 #include "Assert.hpp"
 #include "Dump.hpp"
 #include "Pop.hpp"
