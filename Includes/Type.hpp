@@ -112,7 +112,7 @@ IOperand const *Type<T>::operator+(const IOperand &rhs) const
 	
 	const T	res = value + second;
 
-	if (second < 0 && value < 0 && res > 0)
+	if (second < 0 && value < 0 && res >= 0)
 		throw AbstractRuntimeException("Underflow on " + toString() +  " + " + rhs.toString());
 	else if (second > 0 && value > 0 && res < 0)
 		throw AbstractRuntimeException("Overflow on " + toString() +  " + " + rhs.toString());
