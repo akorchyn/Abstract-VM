@@ -3,7 +3,7 @@ This project introduce to c++ in school 42 franchise Unit Factory.
 AbstractVM is a project of creation virtual machine with a few type and some commands.
 You can execute program without arguments, so programm gets input from console.
 Or give filename or '-'(Console input) as arguments.
-See more details in pdf.
+If you want more details - check the attached pdf.
 
 ### Commands:
 * *push* *type* (see below)  -> Push type to stack
