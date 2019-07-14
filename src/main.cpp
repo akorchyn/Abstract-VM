@@ -1,7 +1,7 @@
 #include <fstream>
 #include "../Includes/Parser.hpp"
 #include <errno.h>
-#include <filesystem>
+#include <iomanip>
 
 /*!
  * \file
@@ -29,7 +29,7 @@ std::unique_ptr<std::istream> openFile(const std::string &filename)
 {
 	std::unique_ptr<std::ifstream>		file(new std::ifstream(filename));
 
-	if (errno || std::filesystem::is_directory(filename)) // if it is directory, or happens any error.
+	if (errno) // if it is directory, or happens any error.
 	{
 		std::cerr << "File error: " << filename << ": " << strerror(errno ? errno : EISDIR) << std::endl;
 		//if errno is 0, that mean file is directory.

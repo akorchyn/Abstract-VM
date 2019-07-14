@@ -11,6 +11,7 @@
  * This class have nothing special, is used as std::runtime_error.
  */
 
+#include <stdexcept>
 #include <string>
 
 class AbstractRuntimeException : public std::runtime_error
